@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Viewer - Virtual Lab Simulator using AR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    
+    <!-- Model Viewer -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
+    <!-- Three.js for additional 3D functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#60a5fa'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-atom text-primary text-2xl mr-3"></i>
+                    <span class="font-bold text-xl text-gray-800">Virtual Lab AR</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="/experiments.html" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Experiments</a>
+                        <a href="/about.html" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="/contact.html" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="/" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="/experiments.html" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Experiments</a>
+                    <a href="/about.html" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="/contact.html" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="/experiments.html" class="inline-flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Experiments
+                </a>
+            </div>
+
+            <!-- Experiment Info -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+                    <div>
+                        <h1 id="experiment-title" class="text-3xl font-bold text-gray-800 mb-2">3D Model Viewer</h1>
+                        <p id="experiment-description" class="text-gray-600">Interactive 3D visualization and exploration</p>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-4 lg:mt-0">
+                        <span id="experiment-category" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Interactive</span>
+                        <span id="experiment-duration" class="text-gray-500">30 min</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Viewer Section -->
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Model Viewer -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-2">3D Model</h2>
+                            <p class="text-gray-600 text-sm">Use your mouse or touch to rotate, zoom, and explore the model</p>
+                        </div>
+                        
+                        <!-- Model Viewer Container -->
+                        <div id="model-container" class="relative bg-gray-50 rounded-lg overflow-hidden" style="height: 500px;">
+                            <!-- Default Placeholder -->
+                            <div id="model-placeholder" class="flex items-center justify-center h-full">
+                                <div class="text-center">
+                                    <i class="fas fa-cube text-6xl text-gray-400 mb-4"></i>
+                                    <h3 class="text-xl font-semibold text-gray-700 mb-2">3D Model Loading</h3>
+                                    <p class="text-gray-500">Preparing interactive visualization...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Model Viewer Component -->
+                            <model-viewer 
+                                id="model-viewer"
+                                style="width: 100%; height: 100%; display: none;"
+                                camera-controls 
+                                touch-action="pan-y"
+                                auto-rotate
+                                auto-rotate-delay="3000"
+                                rotation-per-second="0.1rad"
+                                loading="eager"
+                                reveal="interaction"
+                                ar
+                                ar-modes="webxr scene-viewer quick-look"
+                                camera-orbit="45deg 55deg 4m"
+                                min-camera-orbit="auto auto 1m"
+                                max-camera-orbit="auto auto 10m"
+                                shadow-intensity="1"
+                                shadow-softness="0.5">
+                                
+                                <!-- Loading Animation -->
+                                <div slot="progress-bar" class="progress-bar">
+                                    <div class="update-bar"></div>
+                                </div>
+                                
+                                <!-- AR Button -->
+                                <button slot="ar-button" class="ar-button bg-primary text-white px-4 py-2 rounded-lg">
+                                    <i class="fas fa-cube mr-2"></i>
+                                    View in AR
+                                </button>
+                            </model-viewer>
+                        </div>
+
+                        <!-- Model Controls -->
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <button id="reset-camera" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                <i class="fas fa-refresh mr-1"></i>
+                                Reset View
+                            </button>
+                            <button id="toggle-rotation" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                <i class="fas fa-play mr-1"></i>
+                                Auto Rotate
+                            </button>
+                            <button id="fullscreen-btn" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                <i class="fas fa-expand mr-1"></i>
+                                Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls & Info Panel -->
+                <div class="space-y-6">
+                    <!-- Experiment Details -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-info-circle text-primary mr-2"></i>
+                            About This Experiment
+                        </h3>
+                        <div id="experiment-details" class="space-y-3 text-gray-600">
+                            <p>This interactive 3D model allows you to explore complex structures and understand their components through detailed visualization.</p>
+                        </div>
+                    </div>
+
+                    <!-- Learning Objectives -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-graduation-cap text-primary mr-2"></i>
+                            Learning Objectives
+                        </h3>
+                        <ul id="learning-objectives" class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                                Understand 3D structure and components
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                                Explore interactive features
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                                Analyze relationships between parts
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-tools text-primary mr-2"></i>
+                            Quick Actions
+                        </h3>
+                        <div class="space-y-3">
+                            <button class="w-full bg-blue-100 text-primary border border-primary px-4 py-2 rounded-lg hover:bg-blue-200 transition duration-300">
+                                <i class="fas fa-download mr-2"></i>
+                                Save Progress
+                            </button>
+                            <button class="w-full bg-green-100 text-green-700 border border-green-300 px-4 py-2 rounded-lg hover:bg-green-200 transition duration-300">
+                                <i class="fas fa-share mr-2"></i>
+                                Share Model
+                            </button>
+                            <button class="w-full bg-yellow-100 text-yellow-700 border border-yellow-300 px-4 py-2 rounded-lg hover:bg-yellow-200 transition duration-300">
+                                <i class="fas fa-question-circle mr-2"></i>
+                                Help & Tips
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Related Experiments -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-flask text-primary mr-2"></i>
+                            Related Experiments
+                        </h3>
+                        <div id="related-experiments" class="space-y-2">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg p-6 mt-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-lightbulb text-primary mr-2"></i>
+                    How to Use This Viewer
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-gray-700">
+                    <div class="flex items-start">
+                        <i class="fas fa-mouse text-primary mr-3 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">Rotate & Zoom</h4>
+                            <p class="text-sm">Click and drag to rotate. Use mouse wheel to zoom in/out.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-mobile-alt text-primary mr-3 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">Touch Controls</h4>
+                            <p class="text-sm">Use pinch to zoom and drag to rotate on mobile devices.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-cube text-primary mr-3 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">AR Mode</h4>
+                            <p class="text-sm">Click "View in AR" to see the model in your real environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-atom text-2xl mr-3"></i>
+                        <span class="font-bold text-xl">Virtual Lab AR</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Empowering rural schools with advanced science education through AR technology.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="/experiments.html" class="hover:text-white transition duration-300">Experiments</a></li>
+                        <li><a href="/about.html" class="hover:text-white transition duration-300">About</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Virtual Lab AR. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+    
+    <script src="/virtualLabAR.js"></script> 
+
+    <script src="/viewer.js"></script>
+
+</body>
+</html>

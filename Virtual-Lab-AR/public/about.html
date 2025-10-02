@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Virtual Lab Simulator using AR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#60a5fa'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-atom text-primary text-2xl mr-3"></i>
+                    <span class="font-bold text-xl text-gray-800">Virtual Lab AR</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="/experiments.html" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Experiments</a>
+                        <a href="/about.html" class="text-primary bg-blue-100 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="/contact.html" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="/" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="/experiments.html" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Experiments</a>
+                    <a href="/about.html" class="text-primary bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="/contact.html" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <section class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    About Virtual Lab AR
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Transforming science education in rural schools through innovative AR technology and interactive 3D learning experiences
+                </p>
+            </section>
+
+            <!-- Problem Statement -->
+            <section class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-red-100 rounded-full p-3 mr-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">The Problem We're Solving</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Rural schools across the globe face significant challenges in providing quality science education. 
+                                Limited resources, lack of laboratory equipment, and insufficient funding create barriers to 
+                                effective learning.
+                            </p>
+                            <p class="text-gray-700 leading-relaxed">
+                                Students in these areas often miss out on hands-on experimental learning, which is crucial 
+                                for understanding complex scientific concepts and developing critical thinking skills.
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Challenges:</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center text-gray-700">
+                                    <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                    Limited laboratory equipment
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                    Insufficient funding for materials
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                    Lack of specialized teachers
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                    Geographic isolation
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <i class="fas fa-times-circle text-red-500 mr-3"></i>
+                                    Outdated teaching methods
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Our Solution -->
+            <section class="mb-16">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 mr-4">
+                            <i class="fas fa-lightbulb text-white text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold">Our Solution</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="leading-relaxed mb-4">
+                                Virtual Lab AR democratizes science education by providing immersive, interactive learning 
+                                experiences that can be accessed from anywhere with just a smartphone or tablet.
+                            </p>
+                            <p class="leading-relaxed">
+                                Our platform bridges the educational gap between urban and rural schools, offering 
+                                the same high-quality laboratory experiences to all students regardless of their location.
+                            </p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold mb-4">What We Provide:</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    Interactive 3D models
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    AR visualization
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    Mobile-friendly platform
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    Curriculum-aligned content
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                                    Real-time collaboration
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Objectives -->
+            <section class="mb-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Objectives</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        We're committed to creating measurable impact in science education
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="bg-primary text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-universal-access text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Accessibility</h3>
+                        <p class="text-gray-600">
+                            Make high-quality science education accessible to students in remote and underserved areas
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="bg-primary text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-brain text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Engagement</h3>
+                        <p class="text-gray-600">
+                            Increase student engagement and interest in STEM subjects through interactive learning
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="bg-primary text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Performance</h3>
+                        <p class="text-gray-600">
+                            Improve learning outcomes and academic performance in science subjects
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Scope -->
+            <section class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Project Scope</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-flask text-primary mr-3"></i>
+                                Subject Areas
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-heartbeat text-red-600 text-xl mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Biology</h4>
+                                        <p class="text-gray-600 text-sm">Human anatomy, cell biology, genetics</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-atom text-purple-600 text-xl mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Chemistry</h4>
+                                        <p class="text-gray-600 text-sm">Molecular structures, chemical reactions</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <i class="fas fa-bolt text-yellow-600 text-xl mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Physics</h4>
+                                        <p class="text-gray-600 text-sm">Mechanics, electricity, astronomy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-users text-primary mr-3"></i>
+                                Target Audience
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-blue-50 rounded-lg">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Primary Users</h4>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Students (grades 6-12)</li>
+                                        <li>• Teachers in rural schools</li>
+                                        <li>• Educational administrators</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-green-50 rounded-lg">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Geographic Focus</h4>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Rural communities</li>
+                                        <li>• Underserved urban areas</li>
+                                        <li>• Remote educational institutions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology Stack -->
+            <section class="mb-16">
+                <div class="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Technology Stack</h2>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="bg-white bg-opacity-10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fab fa-html5 text-3xl text-orange-400"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Frontend</h3>
+                            <p class="text-sm text-gray-300">HTML5, CSS3, JavaScript, Tailwind CSS</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white bg-opacity-10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-cube text-3xl text-blue-400"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">3D Graphics</h3>
+                            <p class="text-sm text-gray-300">Three.js, Model-Viewer, WebGL</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white bg-opacity-10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-mobile-alt text-3xl text-green-400"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">AR/VR</h3>
+                            <p class="text-sm text-gray-300">WebXR, ARCore, ARKit</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white bg-opacity-10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-cloud text-3xl text-purple-400"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Hosting</h3>
+                            <p class="text-sm text-gray-300">Cloudflare Pages, Edge Computing</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact & Statistics -->
+            <section class="mb-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Projected Impact</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Our platform aims to create meaningful change in science education outcomes
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">1M+</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Students Reached</h3>
+                        <p class="text-gray-600 text-sm">Projected users within first year</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">500+</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Rural Schools</h3>
+                        <p class="text-gray-600 text-sm">Initial deployment target</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">85%</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Engagement Increase</h3>
+                        <p class="text-gray-600 text-sm">Expected improvement in student engagement</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">30%</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Performance Boost</h3>
+                        <p class="text-gray-600 text-sm">Projected increase in test scores</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="text-center">
+                <div class="bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Ready to Join the Revolution?</h2>
+                    <p class="text-xl text-gray-700 mb-6">
+                        Be part of the movement to transform science education through AR technology
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/experiments.html" class="inline-flex items-center bg-primary text-white font-semibold py-3 px-8 rounded-lg hover:bg-secondary transition duration-300">
+                            <i class="fas fa-flask mr-2"></i>
+                            Explore Experiments
+                        </a>
+                        <a href="/contact.html" class="inline-flex items-center bg-white text-primary border-2 border-primary font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition duration-300">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-atom text-2xl mr-3"></i>
+                        <span class="font-bold text-xl">Virtual Lab AR</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Empowering rural schools with advanced science education through AR technology.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="/experiments.html" class="hover:text-white transition duration-300">Experiments</a></li>
+                        <li><a href="/about.html" class="hover:text-white transition duration-300">About</a></li>
+                        <li><a href="/contact.html" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Virtual Lab AR. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
