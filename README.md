@@ -184,7 +184,7 @@ npm run git:status      # Check git status
 - **Status**: ✅ Fully functional local development server running
 - **Tech Stack**: HTML5 + CSS3 + Vanilla JavaScript + TailwindCSS + Model-Viewer
 - **Local URL**: http://localhost:3000
-- **Public URL**: https://3000-iwvbay0xjprd3earwo2ou-6532622b.e2b.dev
+- **Public URL**: https://virtuallab-2n3.pages.dev/
 - **Last Updated**: 2024-09-26
 
 ## Contributing
